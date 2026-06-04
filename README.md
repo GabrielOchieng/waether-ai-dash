@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Weather AI Dashboard
+
+[![Next.js](https://img.shields.io/badge/next.js-16.2.7-black)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/react-19.2.4-61DAFB?logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/typescript-%23526EDB.svg?logo=typescript)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/license-private-lightgrey)](#license)
+
+A modern Next.js app for real-time weather monitoring and forestry imagery analysis. This project combines live weather data, hourly forecast visualization, and an optional forestry image upload workflow for canopy/tree analysis.
+
+## Project Overview
+
+The app includes two main experiences:
+
+- **Weather Dashboard**: enter latitude/longitude, choose units and language, and display live weather conditions with hourly trends.
+- **Forestry Analysis**: upload aerial imagery and submit metadata to a forestry API endpoint for canopy/tree analytics.
+
+## Features
+
+- Real-time weather lookup by geographic coordinates
+- Metric and Imperial unit toggles
+- Language selection for weather data
+- Current weather summary with icon, temperature, feels-like, humidity, and wind
+- Hourly temperature trend chart using `recharts`
+- Hourly detail cards with precipitation probability
+- Forestry image upload flow with metadata fields for farmer ID and acreage
+- Global toast notifications for API errors
+
+## Routes
+
+- `/` - Weather dashboard
+- `/forestry` - Forestry image analysis
+
+## Tech Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- `@tanstack/react-query`
+- `axios`
+- `recharts`
+- `sonner` for toast notifications
+- `lucide-react` icons
 
 ## Getting Started
 
-First, run the development server:
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Configure environment
+
+Create a `.env.local` file in the project root and add your API key:
+
+```bash
+NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
+```
+
+This key is used by the app to authenticate requests to the backend weather/forestry service.
+
+### Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Development Workflow
 
-To learn more about Next.js, take a look at the following resources:
+- Create a feature branch: `git checkout -b feature/your-feature`
+- Install dependencies: `npm install`
+- Run the app locally: `npm run dev`
+- Build before merging: `npm run build`
+- Keep your branch rebased with `main` or the project default branch
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> No dedicated test suite exists yet. Add tests and update this section once coverage is available.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+### Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is ready to deploy on Vercel.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Sign in to [Vercel](https://vercel.com/) and create a new project.
+2. Connect your Git repository.
+3. Set the environment variable in Vercel:
+   - `NEXT_PUBLIC_WEATHER_API_KEY`
+
+4. Use the default build settings:
+   - Framework Preset: `Next.js`
+   - Build Command: `npm run build`
+   - Output Directory: (default)
+
+5. Deploy.
+
+Vercel will automatically build and host the app, and the `/` and `/forestry` routes will be available.
+
+## Usage
+
+### Weather Dashboard
+
+1. Open `/`
+2. Enter `Latitude` and `Longitude`
+3. Select `Metric` or `Imperial`
+4. Choose display language
+5. Weather information loads automatically
+
+### Forestry Analysis
+
+1. Open `/forestry`
+2. Provide metadata: farmer ID, county, and land acres
+3. Upload an image file
+4. Click `Analyze Image`
+5. Review analysis results once complete
+
+## Code Structure
+
+- `app/` - Next.js app routes and layout
+- `components/` - UI components and feature modules
+  - `features/WeatherCard.tsx` - visual weather card composition
+  - `features/ForestryUploader.tsx` - forestry image upload UI
+  - `ui/Navbar.tsx` - navigation bar
+  - `ui/GlobalToast.tsx` - toast provider
+- `lib/` - API helpers and hooks
+  - `lib/api.ts` - Axios client with base URL and auth header
+  - `lib/api-error.ts` - centralized error handling
+  - `lib/hooks/useWeather.ts` - weather query hook
+  - `lib/hooks/useForestry.ts` - forestry upload mutation
+- `public/` - static assets
+- `types/` - TypeScript data models
+
+## Environment Variables
+
+- `NEXT_PUBLIC_WEATHER_API_KEY` - required to authenticate API requests
+
+## Notes
+
+- The app currently loads weather data from `https://api.weather-ai.co`
+- Toasts surface API errors like unauthorized access, rate limiting, or server failures
+- The forestry feature posts multipart form data to `/v1/trees/analyze`
+
+## License
+
+This repository is currently private and intended for internal usage documentation.
