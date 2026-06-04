@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image"; // Import Image
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
@@ -9,18 +10,21 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const getBrandName = () =>
-    pathname === "/forestry" ? "ForestInsight" : "WeatherInsight";
-
   return (
-    //nav container has relative positioning to act as a parent for the absolute menu
     <nav className="border-b border-slate-200 bg-white sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link
-          href="/"
-          className="font-bold text-xl text-slate-900 tracking-tight"
-        >
-          {getBrandName()}
+        {/* Logo Link with Image */}
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/logo.jpg" // Path to your logo in the public folder
+            alt="Brand Logo"
+            width={32}
+            height={32}
+            className="w-8 h-8 object-contain"
+          />
+          <span className="font-bold text-xl text-slate-900 tracking-tight">
+            {pathname === "/forestry" ? "ForestInsight" : "WeatherInsight"}
+          </span>
         </Link>
 
         {/* Desktop Menu */}
