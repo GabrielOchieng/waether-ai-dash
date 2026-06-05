@@ -1,8 +1,7 @@
-// lib/hooks/useForestry.ts
 import { useMutation } from "@tanstack/react-query";
 import api from "../api";
 
-// Define the shape of the data needed by the API
+// Definition of the shape of the data needed by the API
 interface ForestryPayload {
   image: File;
   farmerId: string;

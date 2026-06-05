@@ -1,7 +1,7 @@
 import { triggerErrorToast } from "@/components/ui/GlobalToast";
 
 export const handleApiError = (error: any) => {
-  // Handle custom API business errors (e.g., quota exceeded)
+  // Handle custom API business errors
   if (error.response?.data?.error === "tree_quota_exceeded") {
     triggerErrorToast(`Quota Exceeded: ${error.response.data.message}`);
     return;

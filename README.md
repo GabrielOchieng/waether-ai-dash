@@ -5,30 +5,31 @@
 [![TypeScript](https://img.shields.io/badge/typescript-%23526EDB.svg?logo=typescript)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/license-private-lightgrey)](#license)
 
-A modern Next.js app for real-time weather monitoring and forestry imagery analysis. This project combines live weather data, hourly forecast visualization, and an optional forestry image upload workflow for canopy/tree analysis.
+A modern dashboard for live weather monitoring and forestry imagery analysis. The current app delivers real-time weather conditions, hourly forecast charts, and a forestry image upload workflow for canopy/tree insights.
 
 ## Project Overview
 
 The app includes two main experiences:
 
-- **Weather Dashboard**: enter latitude/longitude, choose units and language, and display live weather conditions with hourly trends.
-- **Forestry Analysis**: upload aerial imagery and submit metadata to a forestry API endpoint for canopy/tree analytics.
+- **Weather Dashboard**: enter latitude/longitude, choose units and language, and view live weather conditions with hourly trends.
+- **Forestry Analysis**: upload aerial imagery with metadata and submit it to a forestry API endpoint for canopy/tree analytics.
 
 ## Features
 
 - Real-time weather lookup by geographic coordinates
-- Metric and Imperial unit toggles
+- Metric and Imperial unit support
 - Language selection for weather data
 - Current weather summary with icon, temperature, feels-like, humidity, and wind
 - Hourly temperature trend chart using `recharts`
 - Hourly detail cards with precipitation probability
-- Forestry image upload flow with metadata fields for farmer ID and acreage
-- Global toast notifications for API errors
+- Forestry image upload workflow with metadata fields for farmer ID, county, and acreage
+- Global toast notifications for API errors and success states
 
 ## Routes
 
 - `/` - Weather dashboard
 - `/forestry` - Forestry image analysis
+- `/api/proxy/[...path]` - server-side proxy route for weather and forestry API calls (supports `GET` and `POST`)
 
 ## Tech Stack
 
@@ -52,13 +53,14 @@ npm install
 
 ### Configure environment
 
-Create a `.env.local` file in the project root and add your API key:
+Create a `.env.local` file in the project root and add your API settings:
 
 ```bash
-NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
+WEATHER_API_BASE_URL=https://api.weather-ai.co
+WEATHER_API_KEY=your_api_key_here
 ```
 
-This key is used by the app to authenticate requests to the backend weather/forestry service.
+These values authenticate and route requests through the server-side proxy endpoint.
 
 ### Run locally
 
@@ -141,7 +143,8 @@ Vercel will automatically build and host the app, and the `/` and `/forestry` ro
 
 ## Environment Variables
 
-- `NEXT_PUBLIC_WEATHER_API_KEY` - required to authenticate API requests
+- `WEATHER_API_BASE_URL` - base URL for the external weather/forestry API
+- `WEATHER_API_KEY` - server-side API key used by the `/api/proxy/[...path]` proxy route
 
 ## Notes
 
