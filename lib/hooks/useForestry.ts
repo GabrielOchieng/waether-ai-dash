@@ -1,17 +1,3 @@
-// import { useMutation } from "@tanstack/react-query";
-// import api from "../api";
-
-// export const useForestryAnalysis = () => {
-//   return useMutation({
-//     mutationFn: async (formData: FormData) => {
-//       const { data } = await api.post("/v1/trees/analyze", formData, {
-//         headers: { "Content-Type": "multipart/form-data" },
-//       });
-//       return data;
-//     },
-//   });
-// };
-
 // lib/hooks/useForestry.ts
 import { useMutation } from "@tanstack/react-query";
 import api from "../api";
